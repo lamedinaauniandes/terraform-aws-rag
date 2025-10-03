@@ -11,8 +11,6 @@ module "buckets" {
 }
 
 
-
-
 # module "api_rest" { 
 #     source = "./module_api_rest"
 #     resources =  { 

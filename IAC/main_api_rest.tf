@@ -1,9 +1,9 @@
-# module "rest_api" {
-#   source           = "./module_api_rest"
-#   api_gateway_name = "rag-api-gateway"
+module "rest_api" {
+  source           = "./module_api_rest"
+  api_gateway_name = "rag-api-gateway"
 #   resources        = var.resources
 #   get_methods      = var.get_methods
-# }
+}
 
 
 # ### DECLARE RESOURCES
