@@ -5,3 +5,5 @@ terraform.tfstate.backup
 *.tfstate*
 provider_platform.tf
 .terraform.lock.hcl
+
+*.zip

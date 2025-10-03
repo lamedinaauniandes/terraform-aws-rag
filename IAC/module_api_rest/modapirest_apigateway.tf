@@ -13,25 +13,33 @@ resource "aws_api_gateway_resource" "this_resource" {
 
 
 ### declares get methods 
-resource "aws_api_get_method" "this_get_method" {
-    for_each = var.get_methods
+resource "aws_api_gateway_method" "this_get_method" { 
+    for_each = { for k,v  in var.resources: k => v if v["get_method"] == "true"}
+
     rest_api_id = aws_api_gateway_rest_api.this_apigateway.id
     resource_id = aws_api_gateway_resource.this_resource[each.value["name_resource"]].id
-    http_method = "GET"
+    http_method ="GET"
+    authorization = "NONE"  ### will changes, only for dev proposes I put this.
+}
+
+### declares post methods
+resource "aws_api_gateway_method" "this_post_method" {
+    for_each = { for k,v in var.resources: k => v if v["post_method"] == "true"}
+
+    rest_api_id = aws_api_gateway_rest_api.this_apigateway.id 
+    resource_id = aws_api_gateway_resource.this_resource[each.value["name_resource"]].id
+    http_method = "POST"
     authorization = "NONE"
 }
 
-# resource "aws_api_get_method" "this_post_method" {
-#     for_each = var.resources
-#     rest_api_id = aws_api_gateway_rest_api.this_apigateway.id
-#     resource_id = aws_api_gateway_resource.this_resource[each.key].id
-#     http_method = "POST"
-#     authorization = "NONE"
-# }
+### declares delete method
+resource "aws_api_gateway_method" "this_delete_method" { 
+    for_each = {for k,v in var.resources: k=>v if v["delete_method"] == "true"}
 
-# resource "aws_api_get_method" "this_delete_method" {
-#     for_each = var.resources
-#     rest_api_id = aws_api_gateway_resource.this_resource[each.key]
-# }
+    rest_api_id = aws_api_gateway_rest_api.this_apigateway.id 
+    resource_id = aws_api_gateway_resource.this_resource[each.value["name_resource"]].id 
+    http_method = "DELETE"
+    authorization = "NONE"
 
+}
 

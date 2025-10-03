@@ -9,18 +9,3 @@ module "buckets" {
     }
   }
 }
-
-
-# module "api_rest" { 
-#     source = "./module_api_rest"
-#     resources =  { 
-#         resourceA =  {
-#             name_resource = "resourceA"
-#             name_lambda = "lambdaA"
-#         }
-#         resourceB = { 
-#             name_resource = "resourceB"
-#             name_lambda = "lambdaB"
-#         }
-#     }
-# }
