@@ -43,3 +43,12 @@ resource "aws_api_gateway_method" "this_delete_method" {
 
 }
 
+# ## declares of what lambda function gets permission
+# resource "aws_lambda_permission" "allow_api" { 
+#     for_each = var.resources
+#     statement_id = "AlloAPIGatewayInvokeREST"
+#     action = "lambda:InvokeFunction"
+#     funtion_name = aws_lambda_function.this_lambda_function[each.value["name_lambda"]].function_name
+#     principal = "apigateway.amazonaws.com"
+#     source_arn = "${}/*/{}/"
+# }

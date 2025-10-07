@@ -8,8 +8,15 @@ variable "resources" {
     description = "resources variables is where we deploy each resource, and each one of them is a resource wiht an api manage by apigateway"
 }
 
+variable "role_lambda" { 
+    type = map(string)
+    description = "this variable delares the role for lambda functions"
+}
+
 variable "lambdas" {
     type = map(map(string))
     description = "Get methods for each resource."
 }
+
+
 
