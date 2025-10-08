@@ -23,5 +23,8 @@ variable "lambdas" {
     description = "Get methods for each resource."
 }
 
-
+variable "lambda_layers" { 
+    type = map(map(string))
+    description = "layers used by lambda functions"
+}
 

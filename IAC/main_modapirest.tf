@@ -5,6 +5,7 @@ module "rest_api" {
   lambdas          = var.lambdas
   role_lambda      = var.role_lambda
   environment      = var.environment
+  lambda_layers    = var.lambda_layers
 }
 
 variable "environment" {
@@ -23,8 +24,8 @@ variable "resources" {
       post_method   = "true"
       put_method    = null
       delete_method = null
-      deploy_get = "true"
-      deploy_post = "true"
+      deploy_get    = "true"
+      deploy_post   = "true"
     }
     # resource_consult = {
     #   name_resource = "resource_consult"
@@ -40,6 +41,43 @@ variable "resources" {
   }
 }
 
+### DECLARE LAMBDAS
+variable "lambdas" {
+  type = map(map(string))
+  default = {
+    lambda_rag = {
+      name_lambda = "lambda_rag"
+      source_file = "../lambda/lambda_functions/lmbd_rag.py"
+      output_path = "../lambda/lambda_functions/lmbd_rag.zip"
+      handler     = "lmbd_rag.handler"
+      runtime     = "python3.12"
+      timeout     = 5
+      layers      = "pandas,requests" ### put the layers separate by ',' example: pandas,pinecone,statsmodels
+    }
+  }
+}
+
+## DECLARE LAMBDA LAYERS 
+variable "lambda_layers" {
+  type = map(map(string))
+  default = {
+    pandas = {
+      name_layer  = "pandas"
+      description = "pandas library, from ubuntu. v4"
+      source_dir  = "../lambda/layers/pandas_layer"
+      output_path = "../lambda/layers/pandas_layer.zip" ## zip
+    }
+    requests = {
+      name_layer  = "requests"
+      description = "requests library v4"
+      source_dir  = "../lambda/layers/requests_layer"
+      output_path = "../lambda/layers/requests_layer.zip"
+    }
+  }
+
+}
+
+
 ## DECLARE ROLE TO LAMBDAS 
 variable "role_lambda" {
   type = map(string)
@@ -49,18 +87,4 @@ variable "role_lambda" {
 
 }
 
-### DECLARE LAMBDAS
-variable "lambdas" {
-  type = map(map(string))
-  default = {
-    lambda_rag = {
-      name_lambda = "lambda_rag"
-      source_file = "../lambda_functions/lmbd_rag.py"
-      output_path = "../lambda_functions/lmbd_rag.zip"
-      handler     = "lmbd_rag.handler"
-      runtime     = "python3.12"
-      timeout     = 5
-    }
-  }
-}
 

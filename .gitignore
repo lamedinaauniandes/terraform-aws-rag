@@ -7,3 +7,5 @@ provider_platform.tf
 .terraform.lock.hcl
 
 *.zip
+
+lambda/layers/*/*
