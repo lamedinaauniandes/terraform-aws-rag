@@ -3,6 +3,11 @@ variable "api_gateway_name" {
     description =  "the name of the apigateway."
 }
 
+variable "environment" {
+    type = string
+    description = "the name of deploy environment"
+}
+
 variable "resources" { 
     type = map(map(string))
     description = "resources variables is where we deploy each resource, and each one of them is a resource wiht an api manage by apigateway"

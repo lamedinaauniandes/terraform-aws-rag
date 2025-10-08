@@ -15,8 +15,10 @@ resource "aws_iam_role" "this_lambda_role" {
         }]
     })
 }
-## policy-role-iam-lambda
-#### we need create logs in cloudwatch
+###########
+## policy-role-iam-lambda we need create logs in cloudwatch
+###########
+
 resource "aws_iam_role_policy_attachment" "this_lambda_policy" { 
     role = aws_iam_role.this_lambda_role.name
     policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole" # política aws 
