@@ -28,3 +28,11 @@ variable "lambda_layers" {
     description = "layers used by lambda functions"
 }
 
+variable "secrets" { 
+    type = map(map(string))
+    description = "variables secrets in secret_config"
+}
+
+variable "secrets_policies" {
+    type = list(map(string))
+}

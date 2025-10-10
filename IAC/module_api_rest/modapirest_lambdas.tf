@@ -23,9 +23,11 @@ resource "aws_lambda_function" "this_lambda_function" {
         for layer in split(",",each.value["layers"]): 
         aws_lambda_layer_version.this_lambda_layer[layer].arn
     ]
+
+    environment { 
+        variables = var.secrets[each.value["secrets"]]
+    }
 }
-
-
 
 
 resource "aws_iam_role" "this_lambda_role" {
@@ -49,5 +51,16 @@ resource "aws_iam_role_policy_attachment" "this_lambda_policy" {
     policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole" # política aws 
 }
 
+resource "aws_iam_role_policy_attachment" "this_lambda_policy_secrets" {
+    role = aws_iam_role.this_lambda_role.name
+    policy_arn = aws_iam_policy.this_secrets_policy.arn
+}
 
+resource "aws_iam_policy" "this_secrets_policy" {
+    name = "lambda-secrets-policy" 
+    policy = jsonencode({
+        Version = "2012-10-17"
+        Statement  = var.secrets_policies
+    })
+}
 

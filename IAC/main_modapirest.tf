@@ -1,6 +1,8 @@
 module "rest_api" {
   source           = "./module_api_rest"
   api_gateway_name = "rag-api-gateway"
+  secrets          = var.secrets          ## var secrets is a secret file.
+  secrets_policies = var.secrets_policies ## var secrets in a secrect file
   resources        = var.resources
   lambdas          = var.lambdas
   role_lambda      = var.role_lambda
@@ -24,8 +26,6 @@ variable "resources" {
       post_method   = "true"
       put_method    = null
       delete_method = null
-      deploy_get    = "true"
-      deploy_post   = "true"
     }
     # resource_consult = {
     #   name_resource = "resource_consult"
@@ -34,9 +34,6 @@ variable "resources" {
     #   post_method   = "true"
     #   put_method    = null
     #   delete_method = null
-    #   deploy_get = null 
-    #   deploy_post = null
-
     # }
   }
 }
@@ -51,8 +48,9 @@ variable "lambdas" {
       output_path = "../lambda/lambda_functions/lmbd_rag.zip"
       handler     = "lmbd_rag.handler"
       runtime     = "python3.12"
-      timeout     = 5
-      layers      = "pandas,requests" ### put the layers separate by ',' example: pandas,pinecone,statsmodels
+      timeout     = 60
+      layers      = "pandas,requests,pinecone" ### put the layers separate by ',' example: pandas,pinecone,statsmodels
+      secrets     = "secrets1"
     }
   }
 }
@@ -72,6 +70,12 @@ variable "lambda_layers" {
       description = "requests library v4"
       source_dir  = "../lambda/layers/requests_layer"
       output_path = "../lambda/layers/requests_layer.zip"
+    }
+    pinecone = {
+      name_layer  = "pinecone"
+      description = "pinecone library v1"
+      source_dir  = "../lambda/layers/pinecone_layer"
+      output_path = "../lambda/layers/pinecone_layer.zip"
     }
   }
 
