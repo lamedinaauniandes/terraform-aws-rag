@@ -6,6 +6,14 @@ terraform.tfstate.backup
 secret_config.tf
 .terraform.lock.hcl
 
+### 
 *.zip
-
 lambda/layers/*/*
+#### environment
+env/
+#### 
+*.env
+
+###
+*.pdf
+*.json
