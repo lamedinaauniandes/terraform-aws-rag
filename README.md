@@ -1,7 +1,6 @@
 # terraform-aws-rag
 This repository deploys a serverless API on AWS with Terraform, implementing the Retrieval-Augmented Generation (RAG) pattern with support for vector databases.
 
-
 Infrastructure-as-Code portfolio project for deploying a serverless API on AWS using Terraform, implementing the Retrieval-Augmented Generation (RAG) pattern.
 
 The RAG module is designed to support multiple vector database backends. At the beginning, the implementation is adapted for Pinecone, but additional modules (e.g., Chroma, FAISS, Weaviate) will be added to extend its use cases.
@@ -14,9 +13,12 @@ The architecture is modular and configurable: by adjusting variables, you can ad
 The solution is built as a **serverless API** on AWS, provisioned with **Terraform**.  
 Incoming requests are routed through **API Gateway** to **Lambda functions**, which orchestrate three main modules:  
 
-- **RAG Module** → Connects to a vector database service (initially Pinecone, later extendable to Chroma, FAISS, etc.).  
-- **LLMs Module** → Calls language model providers (OpenAI initially, later extensible to Hugging Face Transformers, AWS Bedrock, etc.).  
-- **Other Services** → Integrates with supporting AWS services such as **S3** (storage), **Secrets Manager** (API keys and configuration), and **IAM** (security and permissions).  
+- **IAC** This Infrastructure as Code module is designed to easily deploy a REST API infrastructure on AWS using Terraform, Lambda functions, and the API Gateway service.. 
+
+- **pinecone_rag Module** → Connects to a vector database service (initially Pinecone, later extendable to Chroma, FAISS, etc.), for see how use the implementation see run_rag.ipynb. For this modules at begining I use the module langchain_openai the class ChatOpenAI 
+for extend the queries.
+
+- **lambda module** -> In this module, you can see how to build the Lambdas. With the appropriate configurations, you can deploy all the Lambdas using the IAC module.
 
 This modular design makes it easy to plug in different backends for retrievers and generators without changing the overall infrastructure.
 
