@@ -18,7 +18,8 @@ resource "aws_api_gateway_resource" "this_resource" {
 ###########
 ### METHODS GET, POST, DELETE, PUT
 ###########
-### declares get methods 
+
+### for each resource declares get methods if this is configured 
 resource "aws_api_gateway_method" "this_get_method" { 
     for_each = { for k,v  in var.resources: k => v if v["get_method"] == "true"}
     rest_api_id = aws_api_gateway_rest_api.this_apigateway.id
@@ -27,7 +28,7 @@ resource "aws_api_gateway_method" "this_get_method" {
     authorization = "NONE"  ### will changes, only for dev proposes I put this.
 }
 
-### declares post methods
+### for each resource declares post methods if is configured
 resource "aws_api_gateway_method" "this_post_method" {
     for_each = { for k,v in var.resources: k => v if v["post_method"] == "true"}
     rest_api_id = aws_api_gateway_rest_api.this_apigateway.id 
@@ -44,7 +45,6 @@ resource "aws_api_gateway_method" "this_delete_method" {
     http_method = "DELETE"
     authorization = "NONE"
 }
-
 
 resource "aws_api_gateway_method" "this_put_method" { 
     for_each = {for k,v in var.resources: k=>v if v["put_method"]=="true"}

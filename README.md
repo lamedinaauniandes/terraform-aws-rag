@@ -7,6 +7,13 @@ The RAG module is designed to support multiple vector database backends. At the 
 
 The architecture is modular and configurable: by adjusting variables, you can adapt the deployment to different vector databases and application needs. Each Terraform module provisions the required infrastructure and deploys the API services automatically, making the solution flexible, reusable, and extensible.
 
+## Network design
+For simplicity and cost-efficiency, this project deploys Lambda and API Gateway in a **public context (no VPC)**.
+This enables fast deployment and minimal setup for educational and prototyping purposes.
+A VPC-based version (with private subnets and NAT) can be easily added if required for production environments.
+
+
+
 ## Architecture
 ![Architecture Diagram](docs/terraform-aws-rag-architecture.png)
 
