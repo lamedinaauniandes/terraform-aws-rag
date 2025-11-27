@@ -21,7 +21,7 @@ def handler(event,context):
         query_r = query.get("query")
         
         ##########
-        ## initializin pinecone
+        ## initializing secrets
         ##########
         secret_name_pinecone = os.environ["secret_name_pinecone"]
         secret_name_openai = os.environ["secret_name_openai"]
@@ -93,12 +93,12 @@ def handler(event,context):
         ########
         ## EN REVIEWING CONNECTIONS
         ########
-        
+
         return { 
             "statusCode":200, 
             "headers": {"Content-Type":"application/json"},
             "body":json.dumps({
-                "message":"GET /users",
+                "message":"GET /test",
                 "answer":answer.content,
             }),
         }
