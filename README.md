@@ -12,8 +12,6 @@ For simplicity and cost-efficiency, this project deploys Lambda and API Gateway 
 This enables fast deployment and minimal setup for educational and prototyping purposes.
 A VPC-based version (with private subnets and NAT) can be easily added if required for production environments.
 
-
-
 ## Architecture
 ![Architecture Diagram](docs/terraform-aws-rag-architecture.png)
 
