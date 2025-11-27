@@ -15,7 +15,8 @@ from typing import (
     List,
     Dict,
 )
-from rag_layer import Rag_queries
+import rag_pinecone
+from rag_pinecone import lyr_rag_pinecone
  
 def handler(event,context):
     method = event.get("httpMethod")
@@ -51,7 +52,7 @@ def handler(event,context):
             token_pinecone = secret_dict_pinecone["token_pinecone"]
 
             secret_string_openai = get_secret_value_openai["SecretString"]
-            secret_dict_openai = json.load(secret_string_openai)
+            secret_dict_openai = json.loads(secret_string_openai)
             token_openai = secret_dict_openai["terraform_aws_rag/apenai_token"]
 
         except Exception as e: 
@@ -68,9 +69,15 @@ def handler(event,context):
         #########
         ## APPLYING RAG LIBRARY
         #########
-        rag_q = Rag_queries(pinecone_key = token_pinecone , openai_key=token_openai)
+        try: 
+            rag_q = lyr_rag_pinecone.Rag_queries( pinecone_key = token_pinecone , openai_key=token_openai)
+        except Exception as e: 
+            return { 
+                "statusCode":500,
+                "headers": {"Content-Type":"application/json"}, 
+                "body": json.dumps({"message":f"Error module rag , {e}"})
+            }
 
-        
 
         #########
         ## END

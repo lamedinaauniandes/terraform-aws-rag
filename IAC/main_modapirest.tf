@@ -83,7 +83,7 @@ variable "lambda_layers" {
     }
     rag_layer = {
       name_layer  = "rag_layer"
-      description = "rag layer library v1, this an interface for to do queries and get response."
+      description = "rag layer library v5, this an interface for to do queries and get response."
       source_dir  = "../lambda/layers/rag_layer"
       output_path = "../lambda/layers/rag_layer.zip"
     }
